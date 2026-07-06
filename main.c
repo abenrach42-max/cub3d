@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/03 19:40:43 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/06 21:45:48 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ int	main(int ac, char **av)
     data = init_data(av[1]);
     if (!data)
         return (puts("Error"), 1);
-    printf("%s\n", data->ea_path);
-    printf("%s\n", data->we_path);
-    printf("%s\n", data->so_path);
-    printf("%s\n", data->no_path);
-    printf("%s\n", data->floor_color);
-    printf("%s\n", data->ceiling_color);
+    puts("reussi");
+    for (int i = 0; data->tab[i] != NULL; i++)
+        printf("%s", data->tab[i]);
     free_all_data(data);
     return (0);
 }

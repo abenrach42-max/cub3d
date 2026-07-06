@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/04 10:01:47 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/06 19:05:04 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,27 @@ void	init_data_var(t_data *data)
 	data->ceiling_color = NULL;
 }
 
-int	is_valid_identifier(char *str)
+int is_valid_identifier(char *str)
 {
-	if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
-		|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2)
-		|| !ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
-	{
-		if (str[2] == ' ' || str[2] == '\t' || str[2] == '_')
-			return (1);
-	}
-	return (0);
+    if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
+        || !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
+    {
+        if (str[2] == ' ' || str[2] == '\t' || str[2] == '_')
+            return (1);
+    }
+    if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
+    {
+        if (str[1] == ' ' || str[1] == '\t' || str[1] == '_')
+            return (1);
+    }
+    return (0);
 }
 
-int	init_pos_tab_in_file(t_data *data, int fd)
+int	init_pos_tab_in_file(int fd) 
 {
 	size_t	i;
 	size_t	j;
-	size_t	count;
+	int		count;
 	char	*line;
 
 	count = 0;
@@ -74,7 +78,7 @@ int	init_pos_tab_in_file(t_data *data, int fd)
 			count++;
 		else if (line[i] != '\0' && line[i] != '\n' && line[i] != '1')
 			return (free(line), close(fd), 1);
-		if (count >= 6 && line[i] == '1')
+		if (count == 6 && line[i] == '1')
 			return (free(line), close(fd), j);
 		j++;
 		free(line);

@@ -5,8 +5,9 @@ SRCS =  main.c \
 		parsing1.c \
 		init1.c \
 		init2.c \
+		init3.c \
 		get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c
+		get_next_line/get_next_line_utils.c 
 
 OBJS = $(SRCS:.c=.o)
 
@@ -20,7 +21,7 @@ MLX_FLAGS = -lXext -lX11 -lm
 all: $(NAME)
 
 $(NAME): $(OBJS) $(MLX_LIB)
-	$(CC) $(FLAGS) $(OBJS) $(MLX_LIB) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(MLX_LIB) -no-pie $(MLX_FLAGS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:09:10 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/03 19:48:39 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/06 21:49:01 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,34 @@ int	is_cub(char *str)
             && str[i - 3] == '.')
 		return (1);
 	return (0);
+}
+
+char    *ft_strdup(char *str)
+{
+    size_t  i;
+    char    *dup_str;
+
+    i = 0;
+    dup_str = malloc(sizeof(char) * (ft_strlen(str) + 1));
+    if (!dup_str)
+        return (NULL);
+    while (str[i])
+    {
+        dup_str[i] = str[i];
+        i++;
+    }
+    dup_str[i] = '\0';
+    return (dup_str);
+}
+
+int tab_len(char **tab)
+{
+    int     i;
+
+    i = 0;
+    while (tab[i] != NULL)
+        i++;
+    return (i);
 }
 
 void    free_all_data(t_data *data)
