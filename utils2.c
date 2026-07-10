@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 20:12:58 by abenrach         ###   ########.fr       */
+/*   Created: 2026/07/09 16:53:45 by abenrach          #+#    #+#             */
+/*   Updated: 2026/07/10 20:05:26 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int ac, char **av)
+void    free_tab(char **tab, int size)
 {
-    t_data  *data;
-    t_game  *game;
+    int i;
 
-	if (ac != 2)
-	    return (1);
-    data = init_data(av[1]);
-    if (!data)
-        return (1);
-    game = init_game(data);
-    if (!game)
-        return (1);
-    mlx_loop(game->mlx);
-    free_tab(data->tab, tab_len(data->tab));
-    free_all_data(data);
-    puts("reusi");
-    return (0);
+    i = 0;
+    while (i < size)
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
 }
+

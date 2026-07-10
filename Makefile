@@ -2,12 +2,14 @@ NAME = cub3d
 
 SRCS =  main.c \
 		utils1.c \
+		utils2.c \
 		parsing1.c \
-		init1.c \
-		init2.c \
-		init3.c \
+		init1_data.c \
+		init2_data.c \
+		init3_data.c \
+		init1_game.c \
 		get_next_line/get_next_line.c \
-		get_next_line/get_next_line_utils.c 
+		get_next_line/get_next_line_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
