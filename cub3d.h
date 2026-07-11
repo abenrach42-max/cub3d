@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 19:18:41 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/11 20:51:09 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	void	*img_so;
+	void	*img_no;
+	void	*img_ea;
+	void	*img_we;
 }			t_game;
 
 typedef struct s_data
@@ -44,10 +48,7 @@ typedef struct s_data
 	char	*ea_path;
 	char	*floor_color;
 	char	*ceiling_color;
-	void	*img_so;
-	void	*img_no;
-	void	*img_ea;
-	void	*img_we;
+	t_game	*game;
 }			t_data;
 
 int			path_in_data(t_data *data, int fd);

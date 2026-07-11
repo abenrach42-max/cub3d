@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 20:11:09 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/11 22:00:01 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,32 @@ int loads_images(t_data *data, t_game *game)
     int h;
     int w;
 
-    data->img_no = mlx_xpm_file_to_image(game->mlx, data->no_path, &w, &h);
-    if (!data->img_no)
+    game->img_no = mlx_xpm_file_to_image(game->mlx, data->no_path, &w, &h);
+    if (!game->img_no)
         return (1);
-     data->img_so = mlx_xpm_file_to_image(game->mlx, data->so_path, &w, &h);
-    if (!data->img_so)
+     game->img_so = mlx_xpm_file_to_image(game->mlx, data->so_path, &w, &h);
+    if (!game->img_so)
         return (1);
-     data->img_ea = mlx_xpm_file_to_image(game->mlx, data->ea_path, &w, &h);
-    if (!data->img_ea)
+    game->img_ea = mlx_xpm_file_to_image(game->mlx, data->ea_path, &w, &h);
+    if (!game->img_ea)
         return (1);
-     data->img_we = mlx_xpm_file_to_image(game->mlx, data->we_path, &w, &h);
-    if (!data->img_we)
+    game->img_we = mlx_xpm_file_to_image(game->mlx, data->we_path, &w, &h);
+    if (!game->img_we)
         return (1);
     return (0);
 }
 
 int     init_mlx_game(t_game *game, t_data *data)
 {
-    (void)data;
+    data->game = game;
     game->mlx = mlx_init();
     if (!game->mlx)
         return (1);
     game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3d");
     if (!game->win)
         return (1);
-    // if (loads_images(data, game))
-    //     return (1);
+    if (loads_images(data, game))
+        return (1);
     return (0);
 }
 

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 20:12:58 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/11 22:05:13 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int close_win(t_data *data)
+{
+    puts(data->no_path);
+    exit(0);
+}
+
+int get_key(int keycode, t_data *data)
+{
+    printf("%d\n", keycode);
+    if (keycode == 65307)
+        return (close_win(data));
+    (void)data;
+    return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -25,6 +40,9 @@ int	main(int ac, char **av)
     game = init_game(data);
     if (!game)
         return (1);
+    mlx_put_image_to_window(game->mlx, game->win, game->img_ea, 0, 0);
+    mlx_hook(game->win, 17, 0, close_win, data);
+    mlx_hook(game->win, 2, 1, get_key, data);
     mlx_loop(game->mlx);
     free_tab(data->tab, tab_len(data->tab));
     free_all_data(data);
