@@ -6,7 +6,7 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/06 21:49:17 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/11 20:51:09 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_game
+{
+	void	*mlx;
+	void	*win;
+	void	*img_so;
+	void	*img_no;
+	void	*img_ea;
+	void	*img_we;
+}			t_game;
 
 typedef struct s_data
 {
@@ -38,6 +48,7 @@ typedef struct s_data
 	char	*ea_path;
 	char	*floor_color;
 	char	*ceiling_color;
+	t_game	*game;
 }			t_data;
 
 int			path_in_data(t_data *data, int fd);
@@ -49,7 +60,9 @@ size_t		len_path_dir(char *line);
 int			init_pos_tab_in_file(int fd);
 void		free_all_data(t_data *data);
 int			tab_in_data(t_data *data);
-char    	*ft_strdup(char *str);
+char		*ft_strdup(char *str);
 int			tab_len(char **tab);
+void		free_tab(char **tab, int size);
+t_game		*init_game(t_data *data);
 
 #endif

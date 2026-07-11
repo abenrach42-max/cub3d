@@ -6,24 +6,46 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/06 21:45:48 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/11 22:05:13 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+int close_win(t_data *data)
+{
+    puts(data->no_path);
+    exit(0);
+}
+
+int get_key(int keycode, t_data *data)
+{
+    printf("%d\n", keycode);
+    if (keycode == 65307)
+        return (close_win(data));
+    (void)data;
+    return (0);
+}
+
 int	main(int ac, char **av)
 {
     t_data  *data;
+    t_game  *game;
 
 	if (ac != 2)
 	    return (1);
     data = init_data(av[1]);
     if (!data)
-        return (puts("Error"), 1);
-    puts("reussi");
-    for (int i = 0; data->tab[i] != NULL; i++)
-        printf("%s", data->tab[i]);
+        return (1);
+    game = init_game(data);
+    if (!game)
+        return (1);
+    mlx_put_image_to_window(game->mlx, game->win, game->img_ea, 0, 0);
+    mlx_hook(game->win, 17, 0, close_win, data);
+    mlx_hook(game->win, 2, 1, get_key, data);
+    mlx_loop(game->mlx);
+    free_tab(data->tab, tab_len(data->tab));
     free_all_data(data);
+    puts("reusi");
     return (0);
 }
