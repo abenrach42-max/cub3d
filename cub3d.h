@@ -6,13 +6,15 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/11 20:51:09 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/12 20:32:28 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# define WIDTH 1080
+# define HEIGHT 1920
 # include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
@@ -20,6 +22,17 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_player
+{
+	double	pos_x;
+	double	pos_y;
+	char	dir_char;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}			t_player;
 
 typedef struct s_game
 {
@@ -49,6 +62,7 @@ typedef struct s_data
 	char	*floor_color;
 	char	*ceiling_color;
 	t_game	*game;
+	t_player	*player;
 }			t_data;
 
 int			path_in_data(t_data *data, int fd);
