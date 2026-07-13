@@ -6,7 +6,7 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/12 23:20:50 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/13 04:05:00 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int get_key(int keycode, t_data *data)
         return (close_win(data));
     if (keycode == 119)
         data->player->pos_x -= 0.1;
-    (void)data;
+    if (keycode == 115)
+        data->player->pos_x += 0.1;
     return (0);
 }
 
