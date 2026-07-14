@@ -6,7 +6,7 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/12 20:32:28 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/14 00:56:00 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
 	void	*img_so;
 	void	*img_no;
 	void	*img_ea;

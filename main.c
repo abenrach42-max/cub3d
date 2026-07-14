@@ -6,7 +6,7 @@
 /*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/13 04:05:00 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/14 01:01:04 by enemxa           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ int get_key(int keycode, t_data *data)
     if (keycode == 65307)
         return (close_win(data));
     if (keycode == 119)
-        data->player->pos_x -= 0.1;
+        puts("avance la");
     if (keycode == 115)
-        data->player->pos_x += 0.1;
+        puts("recule la");
     return (0);
 }
+
+// int do_game(t_data *data)
+// {
+    
+// }
 
 int	main(int ac, char **av)
 {
@@ -43,6 +48,7 @@ int	main(int ac, char **av)
     game = init_game(data);
     if (!game)
         return (1);
+    //mlx_loop_hook(game->mlx, do_game, data);
     mlx_hook(game->win, 17, 0, close_win, data);
     mlx_hook(game->win, 2, 1, get_key, data);
     mlx_loop(game->mlx);
