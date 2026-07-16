@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/12 21:23:31 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/16 18:02:53 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,14 @@ int     init_mlx_game(t_game *game, t_data *data)
     game->mlx = mlx_init();
     if (!game->mlx)
         return (1);
-    game->win = mlx_new_window(game->mlx, HEIGHT, WIDTH, "cub3d");
+    game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
     if (loads_images(data, game))
+        return (1);
+    game->img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
+    if (!game->img)
+        return (1);
+    game->addr = mlx_get_data_addr(data->game->img, &data->game->bits_per_pixel, &data->game->size_line, &data->game->endian);
+    if (!game->addr)
         return (1);
     return (0);
 }
@@ -59,6 +65,7 @@ int player_found_pos(t_data *data, t_player *player)
     int count;
     
     i = 0;
+    count = 0;
     while (data->tab[i] != NULL)
     {
         j = 0;

@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 16:53:45 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 20:05:26 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/16 22:12:23 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,22 @@ void    free_tab(char **tab, int size)
     free(tab);
 }
 
+int     find_max_tab(char **tab)
+{
+    int     i;
+    int     j;
+    int     max;
+    
+    i = 0;
+    max = 0;
+    while (tab[i] != NULL)
+    {
+        j = 0;
+        while (tab[i][j])
+            j++;
+        if (max < j)
+            max = j;
+        i++;
+    }
+    return (max);
+}
