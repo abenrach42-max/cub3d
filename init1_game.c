@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/16 18:02:53 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/17 18:01:41 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ int init_player(t_data *data, t_player *player)
     init_player_var(player);
     if (player_found_pos(data, player))
         return (1);
+    player->map_x = (int)player->pos_x;
+    player->map_y = (int)player->pos_y;
     init_player_dir(player);
     return (0);
 }

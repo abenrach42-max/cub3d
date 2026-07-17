@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/17 00:13:26 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/17 19:40:50 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # define HEIGHT 720
 # define WIDTH 1280
 # define SPEED 0.05
+# define ANGLE_SPEED 0.1
 # define BLACK 0x00000000
 # define GREEN 0x0000FF00
 # define RED 0x00FF0000
+# define YELLOW 0x00FFFF00
 # include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
@@ -26,9 +28,24 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 
 typedef struct s_player
 {
+	double		perp_wall_dist;
+	int			line_height;
+	double		draw_start;
+	double		draw_end;
+	int			hit;
+	double		angle;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	int			step_x;
+	int			step_y;
 	double		pos_x;
 	double		pos_y;
 	char		dir_char;
@@ -36,6 +53,9 @@ typedef struct s_player
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
+	int			side;
+	int			map_x;
+	int			map_y;
 }				t_player;
 
 typedef struct s_game
