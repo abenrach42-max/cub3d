@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/17 19:40:50 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/17 22:20:36 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ typedef struct s_player
 	int			side;
 	int			map_x;
 	int			map_y;
+	int			left_rotation;
+	int			right_rotation;
+	int			front;
+	int			behind;
 }				t_player;
 
 typedef struct s_game

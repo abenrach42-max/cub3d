@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/17 19:55:05 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/17 22:21:45 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,57 +18,43 @@ int	close_win(t_data *data)
 	exit(0);
 }
 
-void	go_right(t_data *data)
-{
-	int		x;
-	int		y;
 
-	x = (int)(data->player->pos_x + SPEED);
-	y = (int)data->player->pos_y;
-	if (data->tab[y][x] == '1')
-		return ;
-	data->player->pos_x += SPEED;
+
+void    go_front(t_data *data)
+{
+    double next_x = data->player->pos_x + data->player->dir_x * SPEED;
+    double next_y = data->player->pos_y + data->player->dir_y * SPEED;
+
+    if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
+        data->player->pos_x = next_x;
+    if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
+        data->player->pos_y = next_y;
 }
 
-void	go_left(t_data *data)
+void    go_behind(t_data *data)
 {
-	int		x;
-	int		y;
+    double next_x = data->player->pos_x - data->player->dir_x * SPEED;
+    double next_y = data->player->pos_y - data->player->dir_y * SPEED;
 
-	x = (int)(data->player->pos_x - SPEED);
-	y = (int)data->player->pos_y;
-	if (data->tab[y][x] == '1')
-		return ;
-	data->player->pos_x -= SPEED;
+    if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
+        data->player->pos_x = next_x;
+    if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
+        data->player->pos_y = next_y;
 }
 
-void	go_front(t_data *data)
+void    rotate_player(t_data *data, double angle)
 {
-	int		x;
-	int		y;
+    double old_dir_x = data->player->dir_x;
+    double old_plane_x = data->player->plane_x;
 
-	x = (int)(data->player->pos_x);
-	y = (int)(data->player->pos_y - SPEED);
-	if (data->tab[y][x] == '1')
-		return ;
-	data->player->pos_y -= SPEED;
-}
-
-void	go_behind(t_data *data)
-{
-	int		x;
-	int		y;
-
-	x = (int)(data->player->pos_x);
-	y = (int)(data->player->pos_y + SPEED);
-	if (data->tab[y][x] == '1')
-		return ;
-	data->player->pos_y += SPEED;
+    data->player->dir_x = data->player->dir_x * cos(angle) - data->player->dir_y * sin(angle);
+    data->player->dir_y = old_dir_x * sin(angle) + data->player->dir_y * cos(angle);
+    data->player->plane_x = data->player->plane_x * cos(angle) - data->player->plane_y * sin(angle);
+    data->player->plane_y = old_plane_x * sin(angle) + data->player->plane_y * cos(angle);
 }
 
 int	get_key(int keycode, t_data *data)
 {
-	printf("%d\n", keycode);
 	if (keycode == 65307)
 		return (close_win(data));
 	if (keycode == 119)
@@ -76,9 +62,9 @@ int	get_key(int keycode, t_data *data)
 	if (keycode == 115)
 		go_behind(data);
 	if (keycode == 100)
-		go_right(data);
+		rotate_player(data, ANGLE_SPEED);
 	if (keycode == 97)
-		go_left(data);
+		rotate_player(data, -ANGLE_SPEED);
 	return (0);
 }
 
@@ -112,34 +98,16 @@ void	clear_image(t_game *game)
 	}
 }
 
-void	draw_one_wall(t_data *data, int x, int y)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (i < 64)
-	{
-		j = 0;
-		while (j < 64)
-		{
-			put_pixel(data->game, x + i, y + j, RED);
-			j++;
-		}
-		i++;
-	}
-}
-
 void	init_delta_dist(t_player *player)
 {
 	if (player->ray_dir_x == 0)
-		player->delta_dist_x = INFINITY;
+		player->delta_dist_x = 1e30;
 	else
-		player->delta_dist_x = fabs(1 / player->ray_dir_x);
-	if (player->ray_dir_x == 0)
-		player->delta_dist_y = INFINITY;
+		player->delta_dist_x = fabs(1.0 / player->ray_dir_x);
+	if (player->ray_dir_y == 0)
+		player->delta_dist_y = 1e30;
 	else
-		player->delta_dist_y = fabs(1 / player->ray_dir_y);
+		player->delta_dist_y = fabs(1.0 / player->ray_dir_y);
 }
 
 void    calculate_step(t_player *player)
@@ -195,13 +163,17 @@ void    draw_wall(t_data *data, int x, t_player *player)
     y = 0;
     while (y < HEIGHT)
     {
-        if (y >= player->draw_start && y <= player->draw_end)
+		if (y < player->draw_start)
+			put_pixel(data->game, x, y, YELLOW);
+        else if (y >= player->draw_start && y <= player->draw_end)
         {
             if (player->side == 0)
                 put_pixel(data->game, x, y, 0xFF5733);
             else
                 put_pixel(data->game, x, y, 0x99331A);
         }
+		else
+			put_pixel(data->game, x, y, GREEN);
         y++;
     }
 }
@@ -211,10 +183,8 @@ void    calculate_wall_height(t_player *player)
     if (player->side == 0)
         player->perp_wall_dist = (player->side_dist_x - player->delta_dist_x);
     else
-        player->perp_wall_dist = (player->side_dist_y - player->delta_dist_y);
-        
+    	player->perp_wall_dist = (player->side_dist_y - player->delta_dist_y);
     player->line_height = (int)(HEIGHT / player->perp_wall_dist);
-    
     player->draw_start = -player->line_height / 2 + HEIGHT / 2;
     if (player->draw_start < 0)
         player->draw_start = 0;
@@ -265,7 +235,6 @@ int	main(int ac, char **av)
 	game = init_game(data);
 	if (!game)
 		return (1);
-	printf("ehhhhh : %d\n", find_max_tab(data->tab));
 	mlx_loop_hook(game->mlx, (int (*)())(void *)do_game, data);
 	mlx_hook(game->win, 17, 0, (int (*)())(void *)close_win, data);
 	mlx_hook(game->win, 2, 1, (int (*)())(void *)get_key, data);
