@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/17 22:21:45 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/19 16:59:00 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,47 @@ int	close_win(t_data *data)
 	exit(0);
 }
 
-
-
-void    go_front(t_data *data)
+void	go_front(t_data *data)
 {
-    double next_x = data->player->pos_x + data->player->dir_x * SPEED;
-    double next_y = data->player->pos_y + data->player->dir_y * SPEED;
+	double	next_x;
+	double	next_y;
 
-    if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
-        data->player->pos_x = next_x;
-    if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
-        data->player->pos_y = next_y;
+	next_x = data->player->pos_x + data->player->dir_x * SPEED;
+	next_y = data->player->pos_y + data->player->dir_y * SPEED;
+	if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
+		data->player->pos_x = next_x;
+	if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
+		data->player->pos_y = next_y;
 }
 
-void    go_behind(t_data *data)
+void	go_behind(t_data *data)
 {
-    double next_x = data->player->pos_x - data->player->dir_x * SPEED;
-    double next_y = data->player->pos_y - data->player->dir_y * SPEED;
+	double	next_x;
+	double	next_y;
 
-    if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
-        data->player->pos_x = next_x;
-    if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
-        data->player->pos_y = next_y;
+	next_x = data->player->pos_x - data->player->dir_x * SPEED;
+	next_y = data->player->pos_y - data->player->dir_y * SPEED;
+	if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
+		data->player->pos_x = next_x;
+	if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
+		data->player->pos_y = next_y;
 }
 
-void    rotate_player(t_data *data, double angle)
+void	rotate_player(t_data *data, double angle)
 {
-    double old_dir_x = data->player->dir_x;
-    double old_plane_x = data->player->plane_x;
+	double	old_dir_x;
+	double	old_plane_x;
 
-    data->player->dir_x = data->player->dir_x * cos(angle) - data->player->dir_y * sin(angle);
-    data->player->dir_y = old_dir_x * sin(angle) + data->player->dir_y * cos(angle);
-    data->player->plane_x = data->player->plane_x * cos(angle) - data->player->plane_y * sin(angle);
-    data->player->plane_y = old_plane_x * sin(angle) + data->player->plane_y * cos(angle);
+	old_dir_x = data->player->dir_x;
+	old_plane_x = data->player->plane_x;
+	data->player->dir_x = data->player->dir_x * cos(angle) - data->player->dir_y
+		* sin(angle);
+	data->player->dir_y = old_dir_x * sin(angle) + data->player->dir_y
+		* cos(angle);
+	data->player->plane_x = data->player->plane_x * cos(angle)
+		- data->player->plane_y * sin(angle);
+	data->player->plane_y = old_plane_x * sin(angle) + data->player->plane_y
+		* cos(angle);
 }
 
 int	get_key(int keycode, t_data *data)
@@ -68,12 +76,12 @@ int	get_key(int keycode, t_data *data)
 	return (0);
 }
 
- 
 void	put_pixel(t_game *game, int x, int y, int color)
 {
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
-		*(unsigned int *)(game->addr + (y * game->size_line + x * (game->bits_per_pixel / 8))) = color;
+		*(unsigned int *)(game->addr + (y * game->size_line + x
+					* (game->bits_per_pixel / 8))) = color;
 		return ;
 	}
 	printf("Error\n");
@@ -82,8 +90,8 @@ void	put_pixel(t_game *game, int x, int y, int color)
 
 void	clear_image(t_game *game)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < WIDTH)
@@ -110,116 +118,127 @@ void	init_delta_dist(t_player *player)
 		player->delta_dist_y = fabs(1.0 / player->ray_dir_y);
 }
 
-void    calculate_step(t_player *player)
+void	calculate_step(t_player *player)
 {
-    if (player->ray_dir_x < 0)
-    {
-        player->step_x = -1;
-        player->side_dist_x = (player->pos_x - player->map_x) * player->delta_dist_x;
-    }
-    else
-    {
-        player->step_x = 1;
-        player->side_dist_x = (player->map_x + 1.0 - player->pos_x) * player->delta_dist_x;
-    }
-    if (player->ray_dir_y < 0)
-    {
-        player->step_y = -1;
-        player->side_dist_y = (player->pos_y - player->map_y) * player->delta_dist_y;
-    }
-    else
-    {
-        player->step_y = 1;
-        player->side_dist_y = (player->map_y + 1.0 - player->pos_y) * player->delta_dist_y;
-    }
+	if (player->ray_dir_x < 0)
+	{
+		player->step_x = -1;
+		player->side_dist_x = (player->pos_x - player->map_x)
+			* player->delta_dist_x;
+	}
+	else
+	{
+		player->step_x = 1;
+		player->side_dist_x = (player->map_x + 1.0 - player->pos_x)
+			* player->delta_dist_x;
+	}
+	if (player->ray_dir_y < 0)
+	{
+		player->step_y = -1;
+		player->side_dist_y = (player->pos_y - player->map_y)
+			* player->delta_dist_y;
+	}
+	else
+	{
+		player->step_y = 1;
+		player->side_dist_y = (player->map_y + 1.0 - player->pos_y)
+			* player->delta_dist_y;
+	}
 }
 
-void    perform_dda(t_data *data, t_player *player)
+void	perform_dda(t_data *data, t_player *player)
 {
 	player->hit = 0;
-    while (player->hit == 0)
-    {
-        if (player->side_dist_x < player->side_dist_y)
-        {
-            player->side_dist_x += player->delta_dist_x;
-            player->map_x += player->step_x;
-            player->side = 0;
-        }
-        else
-        {
-            player->side_dist_y += player->delta_dist_y;
-            player->map_y += player->step_y;
-            player->side = 1;
-        }
-        if (data->tab[player->map_y][player->map_x] == '1')
-            player->hit = 1;
-    }
+	while (player->hit == 0)
+	{
+		if (player->side_dist_x < player->side_dist_y)
+		{
+			player->side_dist_x += player->delta_dist_x;
+			player->map_x += player->step_x;
+			player->side = 0;
+		}
+		else
+		{
+			player->side_dist_y += player->delta_dist_y;
+			player->map_y += player->step_y;
+			player->side = 1;
+		}
+		if (data->tab[player->map_y][player->map_x] == '1')
+			player->hit = 1;
+	}
 }
 
-void    draw_wall(t_data *data, int x, t_player *player)
+void	draw_wall(t_data *data, int x, t_player *player)
 {
-    int y;
+	int	y;
 
-    y = 0;
-    while (y < HEIGHT)
-    {
+	y = 0;
+	while (y < HEIGHT)
+	{
 		if (y < player->draw_start)
 			put_pixel(data->game, x, y, YELLOW);
-        else if (y >= player->draw_start && y <= player->draw_end)
-        {
-            if (player->side == 0)
-                put_pixel(data->game, x, y, 0xFF5733);
-            else
-                put_pixel(data->game, x, y, 0x99331A);
-        }
+		else if (y >= player->draw_start && y <= player->draw_end)
+		{
+			if (player->side == 0)
+				put_pixel(data->game, x, y, 0xFF5733);
+			else
+				put_pixel(data->game, x, y, 0x99331A);
+		}
 		else
 			put_pixel(data->game, x, y, GREEN);
-        y++;
-    }
+		y++;
+	}
 }
 
-void    calculate_wall_height(t_player *player)
+void	calculate_wall_height(t_player *player)
 {
-    if (player->side == 0)
-        player->perp_wall_dist = (player->side_dist_x - player->delta_dist_x);
-    else
-    	player->perp_wall_dist = (player->side_dist_y - player->delta_dist_y);
-    player->line_height = (int)(HEIGHT / player->perp_wall_dist);
-    player->draw_start = -player->line_height / 2 + HEIGHT / 2;
-    if (player->draw_start < 0)
-        player->draw_start = 0;
-        
-    player->draw_end = player->line_height / 2 + HEIGHT / 2;
-    if (player->draw_end >= HEIGHT)
-        player->draw_end = HEIGHT - 1;
+	if (player->side == 0)
+		player->perp_wall_dist = (player->side_dist_x - player->delta_dist_x);
+	else
+		player->perp_wall_dist = (player->side_dist_y - player->delta_dist_y);
+	player->line_height = (int)(HEIGHT / player->perp_wall_dist);
+	player->draw_start = -player->line_height / 2 + HEIGHT / 2;
+	if (player->draw_start < 0)
+		player->draw_start = 0;
+	player->draw_end = player->line_height / 2 + HEIGHT / 2;
+	if (player->draw_end >= HEIGHT)
+		player->draw_end = HEIGHT - 1;
 }
 
-void    raycasting_per_column(t_data *data, int x)
+void	raycasting_per_column(t_data *data, int x)
 {
-	double camera = 2.0 * x / (double)WIDTH - 1.0;
-    data->player->ray_dir_x = data->player->dir_x + data->player->plane_x * camera;
-    data->player->ray_dir_y = data->player->dir_y + data->player->plane_y * camera;
-    data->player->map_x = (int)data->player->pos_x;
-    data->player->map_y = (int)data->player->pos_y;
+	double	camera;
+
+	camera = 2.0 * x / (double)WIDTH - 1.0;
+	data->player->ray_dir_x = data->player->dir_x + data->player->plane_x
+		* camera;
+	data->player->ray_dir_y = data->player->dir_y + data->player->plane_y
+		* camera;
+	data->player->map_x = (int)data->player->pos_x;
+	data->player->map_y = (int)data->player->pos_y;
 	init_delta_dist(data->player);
-    calculate_step(data->player);
-    perform_dda(data, data->player);
-    calculate_wall_height(data->player);
-    draw_wall(data, x, data->player); 
+	calculate_step(data->player);
+	perform_dda(data, data->player);
+	calculate_wall_height(data->player);
+	draw_wall(data, x, data->player);
 }
 
 void	init_raycast(t_data *data)
 {
-	clear_image(data->game);	
-	for (int x = 0; x < WIDTH; x++)
+	int	x;
+
+	x = 0;
+	clear_image(data->game);
+	while (x++ < WIDTH)
 		raycasting_per_column(data, x);
-	mlx_put_image_to_window(data->game->mlx, data->game->win, data->game->img, 0, 0);
+	mlx_put_image_to_window(data->game->mlx, data->game->win, data->game->img,
+		0, 0);
 }
 
 int	do_game(t_data *data)
 {
 	init_raycast(data);
-    return (0);
+	return (0);
 }
 
 int	main(int ac, char **av)

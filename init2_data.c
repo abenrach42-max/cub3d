@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/10 19:53:08 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/19 16:56:58 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ void	init_data_var(t_data *data)
 	data->tab = NULL;
 }
 
-int is_valid_identifier(char *str)
+int	is_valid_identifier(char *str)
 {
-    if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
-        || !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
-    {
-        if (str[2] == ' ' || str[2] == '\t' || str[2] == '_')
-            return (1);
-    }
-    if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
-    {
-        if (str[1] == ' ' || str[1] == '\t' || str[1] == '_')
-            return (1);
-    }
-    return (0);
+	if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
+		|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
+	{
+		if (str[2] == ' ' || str[2] == '\t' || str[2] == '_')
+			return (1);
+	}
+	if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
+	{
+		if (str[1] == ' ' || str[1] == '\t' || str[1] == '_')
+			return (1);
+	}
+	return (0);
 }
 
-int	init_pos_tab_in_file(int fd) 
+int	init_pos_tab_in_file(int fd)
 {
 	size_t	i;
 	size_t	j;
