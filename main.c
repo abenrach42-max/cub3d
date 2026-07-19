@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 16:59:00 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/19 17:04:10 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,8 @@ void	init_raycast(t_data *data)
 
 	x = 0;
 	clear_image(data->game);
-	while (x++ < WIDTH)
-		raycasting_per_column(data, x);
+	while (x < WIDTH)
+		raycasting_per_column(data, x++);
 	mlx_put_image_to_window(data->game->mlx, data->game->win, data->game->img,
 		0, 0);
 }
