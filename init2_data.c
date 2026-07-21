@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 16:56:58 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/21 10:17:36 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ t_data	*init_data(char *av)
 	init_data_var(data);
 	fd = open(data->path_map, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
+		return (free_all(data), NULL);
 	if (path_in_data(data, fd))
-		return (free_all_data(data), NULL);
+		return (free_all(data), NULL);
 	if (tab_in_data(data))
-		return (free_all_data(data), NULL);
+		return (free_all(data), NULL);
 	return (data);
 }

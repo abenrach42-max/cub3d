@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 16:55:29 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/19 20:28:42 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	init_mlx_game(t_game *game, t_data *data)
 	if (!game->mlx)
 		return (1);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
+	if (!game->win)
+		return (1);
 	if (loads_images(data, game))
 		return (1);
 	game->img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);

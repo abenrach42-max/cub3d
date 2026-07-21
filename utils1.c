@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enemxa <enemxa@student.42.fr>              +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:09:10 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/06 21:49:01 by enemxa           ###   ########.fr       */
+/*   Updated: 2026/07/19 20:41:02 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,15 @@ int tab_len(char **tab)
     return (i);
 }
 
-void    free_all_data(t_data *data)
+void    print_error(char *str)
 {
-    if (data->ceiling_color)
-        free(data->ceiling_color);
-    if (data->floor_color)
-        free(data->floor_color);
-    if (data->ea_path)
-        free(data->ea_path);
-    if (data->we_path)
-        free(data->we_path);
-    if (data->so_path)
-        free(data->so_path);
-    if (data->no_path)
-        free(data->no_path);
-    free(data);
+    size_t  i;
+
+    i = 0;
+    write(2, "Error\n", 6);
+    while (str[i])
+    {
+        write(2, &str[i], 1);
+        i++;
+    }
 }

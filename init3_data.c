@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init3_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:31:47 by enemxa            #+#    #+#             */
-/*   Updated: 2026/07/19 16:57:25 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/19 20:46:09 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ int	tab_in_data(t_data *data)
 	if (fd < 0)
 		return (1);
 	if (fill_tab_data(data, index_tab, len_tab, fd))
+	{
+		data->tab = NULL;
 		return (1);
+	}
 	remove_line(data);
 	return (0);
 }

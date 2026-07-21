@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/17 22:20:36 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/19 20:35:28 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
+# include <math.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <math.h>
 
 typedef struct s_player
 {
@@ -105,12 +105,12 @@ int				only_valid_char(char **tab);
 t_data			*init_data(char *av);
 size_t			len_path_dir(char *line);
 int				init_pos_tab_in_file(int fd);
-void			free_all_data(t_data *data);
 int				tab_in_data(t_data *data);
 char			*ft_strdup(char *str);
 int				tab_len(char **tab);
 void			free_tab(char **tab, int size);
 t_game			*init_game(t_data *data);
 int				find_max_tab(char **tab);
+void			free_all(t_data *data);
 
 #endif

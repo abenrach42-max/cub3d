@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 17:04:10 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/21 10:32:50 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	close_win(t_data *data)
 {
-	puts(data->no_path);
+	free_all(data);
 	exit(0);
 }
 
@@ -223,7 +223,7 @@ void	raycasting_per_column(t_data *data, int x)
 	draw_wall(data, x, data->player);
 }
 
-void	init_raycast(t_data *data)
+int		raycast(t_data *data)
 {
 	int	x;
 
@@ -233,13 +233,9 @@ void	init_raycast(t_data *data)
 		raycasting_per_column(data, x++);
 	mlx_put_image_to_window(data->game->mlx, data->game->win, data->game->img,
 		0, 0);
-}
-
-int	do_game(t_data *data)
-{
-	init_raycast(data);
 	return (0);
 }
+
 
 int	main(int ac, char **av)
 {
@@ -254,7 +250,7 @@ int	main(int ac, char **av)
 	game = init_game(data);
 	if (!game)
 		return (1);
-	mlx_loop_hook(game->mlx, (int (*)())(void *)do_game, data);
+	mlx_loop_hook(game->mlx, (int (*)())(void *)raycast, data);
 	mlx_hook(game->win, 17, 0, (int (*)())(void *)close_win, data);
 	mlx_hook(game->win, 2, 1, (int (*)())(void *)get_key, data);
 	mlx_loop(game->mlx);
