@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 18:41:49 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/22 20:12:11 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ typedef struct s_game
 
 typedef struct s_keys
 {
-	int	w;
-	int	s;
-	int	a;
-	int	d;
-	int	left;
-	int	right;
-}	t_keys;
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+	int			left;
+	int			right;
+}				t_keys;
 
 typedef struct s_data
 {
@@ -125,5 +125,6 @@ void			free_tab(char **tab, int size);
 t_game			*init_game(t_data *data);
 int				find_max_tab(char **tab);
 void			free_all(t_data *data);
+void			print_error(char *str);
 
 #endif

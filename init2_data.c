@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 18:42:19 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/22 20:51:13 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ void	init_data_var(t_data *data)
 	data->floor_color = NULL;
 	data->ceiling_color = NULL;
 	data->tab = NULL;
+	data->keys.w = 0;
+	data->keys.s = 0;
+	data->keys.a = 0;
+	data->keys.d = 0;
+	data->keys.left = 0;
+	data->keys.right = 0;
 }
 
 int	is_valid_identifier(char *str)
@@ -95,21 +101,15 @@ t_data	*init_data(char *av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (NULL);
+		return (print_error("Malloc error data"), NULL);
 	data->path_map = av;
 	init_data_var(data);
 	fd = open(data->path_map, O_RDONLY);
 	if (fd < 0)
-		return (free_all(data), NULL);
+		return (print_error("Open fail in init data"), free_all(data), NULL);
 	if (path_in_data(data, fd))
 		return (free_all(data), NULL);
 	if (tab_in_data(data))
 		return (free_all(data), NULL);
-	data->keys.w = 0;
-	data->keys.s = 0;
-	data->keys.a = 0;
-	data->keys.d = 0;
-	data->keys.left = 0;
-	data->keys.right = 0;
 	return (data);
 }

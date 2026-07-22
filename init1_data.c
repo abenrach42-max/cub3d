@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:54:30 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 20:44:14 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 20:50:00 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ int	path_in_data(t_data *data, int fd)
 			malloc_path_dir(data, line, 1);
 		else if (line[i] != '\0' && line[i] != '\n' && line[i] != '1'
 			&& line[i] != '_')
-			return (free(line), close(fd), 1);
+			return (print_error("Strings in file"), free(line), close(fd), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
 	if (!data->ea_path || !data->so_path || !data->no_path || !data->we_path
 		|| !data->floor_color || !data->ceiling_color)
-		return (close(fd), 1);
+		return (print_error("Path in data NULL"), close(fd), 1);
 	return (close(fd), 0);
 }

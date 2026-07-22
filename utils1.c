@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:09:10 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 20:41:02 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 20:56:40 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	is_cub(char *str)
 		i--;
 	if (str[i] == 'b' && str[i - 1] == 'u' && str[i - 2] == 'c'
             && str[i - 3] == '.')
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 char    *ft_strdup(char *str)
@@ -82,4 +82,5 @@ void    print_error(char *str)
         write(2, &str[i], 1);
         i++;
     }
+    write(2, "\n", 1);
 }

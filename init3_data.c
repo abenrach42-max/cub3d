@@ -6,7 +6,7 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:31:47 by enemxa            #+#    #+#             */
-/*   Updated: 2026/07/19 20:46:09 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 20:52:33 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,18 @@ int	tab_in_data(t_data *data)
 		return (1);
 	index_tab = init_pos_tab_in_file(fd);
 	if (index_tab == -1)
-		return (1);
+		return (print_error("Position not found"), 1);
 	fd = open(data->path_map, O_RDONLY);
 	if (fd < 0)
-		return (1);
+		return (print_error("Open fail in tab in data"), 1);
 	len_tab = len_tab_in_file(fd, index_tab);
 	fd = open(data->path_map, O_RDONLY);
 	if (fd < 0)
-		return (1);
+		return (print_error("Open fail in tab in data"), 1);
 	if (fill_tab_data(data, index_tab, len_tab, fd))
 	{
 		data->tab = NULL;
-		return (1);
+		return (print_error("Fill tab fail"), 1);
 	}
 	remove_line(data);
 	return (0);
