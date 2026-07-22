@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/21 10:17:36 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 16:59:28 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,9 @@ t_data	*init_data(char *av)
 		return (free_all(data), NULL);
 	if (tab_in_data(data))
 		return (free_all(data), NULL);
+	data->keys.w = 0;
+	data->keys.s = 0;
+	data->keys.a = 0;
+	data->keys.d = 0;
 	return (data);
 }

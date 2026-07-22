@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/19 20:35:28 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 17:25:01 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define HEIGHT 720
 # define WIDTH 1280
-# define SPEED 0.05
-# define ANGLE_SPEED 0.1
+# define SPEED 0.01
+# define ANGLE_SPEED 0.01
 # define BLACK 0x00000000
 # define GREEN 0x0000FF00
 # define RED 0x00FF0000
@@ -77,6 +77,14 @@ typedef struct s_game
 	char		*addr;
 }				t_game;
 
+typedef struct s_keys
+{
+	int	w;
+	int	s;
+	int	a;
+	int	d;
+}	t_keys;
+
 typedef struct s_data
 {
 	char		**tab;
@@ -96,6 +104,7 @@ typedef struct s_data
 	char		*ceiling_color;
 	t_game		*game;
 	t_player	*player;
+	t_keys		keys;
 }				t_data;
 
 int				path_in_data(t_data *data, int fd);

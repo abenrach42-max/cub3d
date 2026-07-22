@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 16:51:02 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/22 17:33:10 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,6 @@ void	rotate_player(t_data *data, double angle)
 		- data->player->plane_y * sin(angle);
 	data->player->plane_y = old_plane_x * sin(angle) + data->player->plane_y
 		* cos(angle);
-}
-
-int	get_key(int keycode, t_data *data)
-{
-	if (keycode == 65307)
-		return (close_win(data));
-	if (keycode == 119)
-		go_front(data);
-	if (keycode == 115)
-		go_behind(data);
-	if (keycode == 100)
-		rotate_player(data, ANGLE_SPEED);
-	if (keycode == 97)
-		rotate_player(data, -ANGLE_SPEED);
-	return (0);
 }
 
 void	put_pixel(t_game *game, int x, int y, int color)
@@ -223,11 +208,52 @@ void	raycasting_per_column(t_data *data, int x)
 	draw_wall(data, x, data->player);
 }
 
-int		raycast(t_data *data)
+int	key_press(int keycode, t_data *data)
+{
+	if (keycode == 65307)
+		return (close_win(data));
+	if (keycode == 119)
+		data->keys.w = 1;
+	if (keycode == 115)
+		data->keys.s = 1;
+	if (keycode == 100)
+		data->keys.d = 1;
+	if (keycode == 97)
+		data->keys.a = 1;
+	return (0);
+}
+
+int	key_release(int keycode, t_data *data)
+{
+	if (keycode == 119)
+		data->keys.w = 0;
+	if (keycode == 115)
+		data->keys.s = 0;
+	if (keycode == 100)
+		data->keys.d = 0;
+	if (keycode == 97)
+		data->keys.a = 0;
+	return (0);
+}
+
+void	handle_movement(t_data *data)
+{
+	if (data->keys.w)
+		go_front(data);
+	if (data->keys.s)
+		go_behind(data);
+	if (data->keys.d)
+		rotate_player(data, ANGLE_SPEED);
+	if (data->keys.a)
+		rotate_player(data, -ANGLE_SPEED);
+}
+
+int	raycast(t_data *data)
 {
 	int	x;
 
 	x = 0;
+	handle_movement(data);
 	clear_image(data->game);
 	while (x < WIDTH)
 		raycasting_per_column(data, x++);
@@ -235,7 +261,6 @@ int		raycast(t_data *data)
 		0, 0);
 	return (0);
 }
-
 
 int	main(int ac, char **av)
 {
@@ -252,7 +277,8 @@ int	main(int ac, char **av)
 		return (1);
 	mlx_loop_hook(game->mlx, (int (*)())(void *)raycast, data);
 	mlx_hook(game->win, 17, 0, (int (*)())(void *)close_win, data);
-	mlx_hook(game->win, 2, 1, (int (*)())(void *)get_key, data);
+	mlx_hook(game->win, 2, 1L << 0, (int (*)())(void *)key_press, data);
+	mlx_hook(game->win, 3, 1L << 1, (int (*)())(void *)key_release, data);
 	mlx_loop(game->mlx);
 	return (0);
 }
