@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 16:59:28 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/22 18:42:19 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ t_data	*init_data(char *av)
 	data->keys.s = 0;
 	data->keys.a = 0;
 	data->keys.d = 0;
+	data->keys.left = 0;
+	data->keys.right = 0;
 	return (data);
 }

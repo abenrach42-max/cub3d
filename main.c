@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:35:51 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 17:33:10 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/22 19:49:11 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,13 @@ int	close_win(t_data *data)
 	exit(0);
 }
 
-void	go_front(t_data *data)
+void	move_player(t_data *data, double dx, double dy)
 {
 	double	next_x;
 	double	next_y;
 
-	next_x = data->player->pos_x + data->player->dir_x * SPEED;
-	next_y = data->player->pos_y + data->player->dir_y * SPEED;
-	if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
-		data->player->pos_x = next_x;
-	if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
-		data->player->pos_y = next_y;
-}
-
-void	go_behind(t_data *data)
-{
-	double	next_x;
-	double	next_y;
-
-	next_x = data->player->pos_x - data->player->dir_x * SPEED;
-	next_y = data->player->pos_y - data->player->dir_y * SPEED;
+	next_x = data->player->pos_x + dx * SPEED;
+	next_y = data->player->pos_y + dy * SPEED;
 	if (data->tab[(int)data->player->pos_y][(int)next_x] != '1')
 		data->player->pos_x = next_x;
 	if (data->tab[(int)next_y][(int)data->player->pos_x] != '1')
@@ -220,6 +207,10 @@ int	key_press(int keycode, t_data *data)
 		data->keys.d = 1;
 	if (keycode == 97)
 		data->keys.a = 1;
+	if (keycode == 65361)
+		data->keys.right = 1;
+	if (keycode == 65363)
+		data->keys.left = 1;
 	return (0);
 }
 
@@ -233,18 +224,26 @@ int	key_release(int keycode, t_data *data)
 		data->keys.d = 0;
 	if (keycode == 97)
 		data->keys.a = 0;
+	if (keycode == 65361)
+		data->keys.right = 0;
+	if (keycode == 65363)
+		data->keys.left = 0;
 	return (0);
 }
 
 void	handle_movement(t_data *data)
 {
 	if (data->keys.w)
-		go_front(data);
+		move_player(data, data->player->dir_x, data->player->dir_y);
 	if (data->keys.s)
-		go_behind(data);
+		move_player(data, -data->player->dir_x, -data->player->dir_y);
 	if (data->keys.d)
-		rotate_player(data, ANGLE_SPEED);
+		move_player(data, -data->player->dir_y, data->player->dir_x);
 	if (data->keys.a)
+		move_player(data, data->player->dir_y, -data->player->dir_x);
+	if (data->keys.left)
+		rotate_player(data, ANGLE_SPEED);
+	if (data->keys.right)
 		rotate_player(data, -ANGLE_SPEED);
 }
 

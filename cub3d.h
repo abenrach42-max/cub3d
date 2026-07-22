@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 17:25:01 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/07/22 18:41:49 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define GREEN 0x0000FF00
 # define RED 0x00FF0000
 # define YELLOW 0x00FFFF00
+# define FRONT 1
+# define BEHIND -1
 # include "get_next_line/get_next_line.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
@@ -83,6 +85,8 @@ typedef struct s_keys
 	int	s;
 	int	a;
 	int	d;
+	int	left;
+	int	right;
 }	t_keys;
 
 typedef struct s_data
