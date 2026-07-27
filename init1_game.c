@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 21:43:41 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/27 16:21:58 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,19 @@ int	init_player(t_data *data, t_player *player)
 	return (0);
 }
 
+void	init_game_var(t_game *game)
+{
+	game->mlx = NULL;
+	game->win = NULL;
+	game->img = NULL;
+	game->img_so = NULL;
+	game->img_no = NULL;
+	game->img_ea = NULL;
+	game->img_we = NULL;
+	game->addr = NULL;
+
+}
+
 t_game	*init_game(t_data *data)
 {
 	t_game		*game;
@@ -151,6 +164,7 @@ t_game	*init_game(t_data *data)
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (print_error("Malloc game fail"), NULL);
+	init_game_var(game);
 	if (init_mlx_game(game, data))
 		return (NULL);
 	player = malloc(sizeof(t_player));

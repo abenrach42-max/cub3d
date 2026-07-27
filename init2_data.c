@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 20:51:13 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/07/27 16:10:14 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	init_data_var(t_data *data)
 	data->keys.d = 0;
 	data->keys.left = 0;
 	data->keys.right = 0;
+	data->player = NULL;
+	data->game = NULL;
 }
 
 int	is_valid_identifier(char *str)
