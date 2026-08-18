@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:20:59 by abenrach          #+#    #+#             */
-/*   Updated: 2026/06/26 16:54:54 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/18 16:12:50 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	only_valid_char(char **tab)
 		{
 			if (!(tab[i][j] == '1' || tab[i][j] == '0' || tab[i][j] == 'N'
 					|| tab[i][j] == 'W' || tab[i][j] == 'S' || tab[i][j] == 'E'
-					|| tab[i][j] == '_'))
+					|| tab[i][j] == ' '))
 				return (0);
 			j++;
 		}

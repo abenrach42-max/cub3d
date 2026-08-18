@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:57:09 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/27 16:10:14 by houms            ###   ########.fr       */
+/*   Updated: 2026/08/18 16:16:40 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ t_data	*init_data(char *av)
 		return (free_all(data), NULL);
 	if (tab_in_data(data))
 		return (free_all(data), NULL);
+	if (!only_valid_char(data->tab))
+		return (print_error("Invalid character in map"), free_all(data), NULL);
 	return (data);
 }
