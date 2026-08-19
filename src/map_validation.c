@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/19 18:56:56 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	flood_fill(char **grid, int row, int col)
 	if (row >= 0 && col >= 0 && grid[row] && grid[row][col])
 	{
 		if (grid[row][col] != '1' && grid[row][col] != 'X'
-			&& grid[row][col] != ' ')
+			&& col <= (int)ft_strlen(grid[row]) && grid[row][col] != ' ')
 		{
 			grid[row][col] = 'X';
 			if (flood_fill(grid, row - 1, col)

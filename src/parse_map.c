@@ -6,27 +6,32 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/19 19:22:32 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static char	*skip_lines(int fd, int index_tab)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (index_tab-- > 0)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (line);
+}
+
 int	len_tab_in_file(int fd, int index_tab)
 {
-	int		i;
 	int		count;
 	char	*line;
 
-	i = 0;
 	count = 0;
-	while (i < index_tab)
-	{
-		line = get_next_line(fd);
-		free(line);
-		i++;
-	}
-	line = get_next_line(fd);
+	line = skip_lines(fd, index_tab);
 	while (line != NULL)
 	{
 		count++;
@@ -42,12 +47,7 @@ int	fill_tab_data(t_data *data, int index_tab, int len_tab, int fd)
 	char	*line;
 
 	i = 0;
-	line = get_next_line(fd);
-	while (i++ < index_tab)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
+	line = skip_lines(fd, index_tab);
 	data->tab = malloc(sizeof(char *) * (len_tab + 1));
 	if (!data->tab)
 		return (free(line), close(fd), 1);
