@@ -112,20 +112,36 @@ typedef struct s_data
 	t_keys		keys;
 }				t_data;
 
-int				path_in_data(t_data *data, int fd);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
-int				is_cub(char *str);
-int				only_valid_char(char **tab);
 t_data			*init_data(char *av);
+int				path_in_data(t_data *data, int fd);
 size_t			len_path_dir(char *line);
 int				init_pos_tab_in_file(int fd);
 int				tab_in_data(t_data *data);
-int				tab_len(char **tab);
-void			free_tab(char **tab, int size);
-t_game			*init_game(t_data *data);
-int				find_max_tab(char **tab);
-void			free_all(t_data *data);
-void			print_error(char *str);
+int				only_valid_char(char **tab);
 char			**ft_grid_cpy(char **tab);
 int				flood_fill(char **grid, int row, int col);
+
+t_game			*init_game(t_data *data);
+int				init_player(t_data *data, t_player *player);
+void			init_player_dir(t_player *player);
+
+void			put_pixel(t_game *game, int x, int y, int color);
+void			clear_image(t_game *game);
+void			init_delta_dist(t_player *player);
+void			calculate_step(t_player *player);
+void			perform_dda(t_data *data, t_player *player);
+void			calculate_wall_height(t_player *player);
+void			handle_movement(t_data *data);
+int				raycast(t_data *data);
+int				close_win(t_data *data);
+int				key_press(int keycode, t_data *data);
+int				key_release(int keycode, t_data *data);
+
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int				is_cub(char *str);
+int				tab_len(char **tab);
+int				find_max_tab(char **tab);
+void			print_error(char *str);
+void			free_tab(char **tab, int size);
+void			free_all(t_data *data);
 #endif

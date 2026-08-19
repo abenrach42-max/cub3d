@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils1.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/23 23:09:10 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/19 13:09:59 by hcissoko         ###   ########.fr       */
+/*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
+/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-int	is_cub(char *str)
-{
-	size_t	i;
-
-	i = ft_strlen(str) - 1;
-	while ((i > 0) && str[i] == ' ')
-		i--;
-	if (str[i] == 'b' && str[i - 1] == 'u' && str[i - 2] == 'c'
-		&& str[i - 3] == '.')
-		return (0);
-	return (1);
-}
-
 int	tab_len(char **tab)
 {
 	int	i;
@@ -53,16 +40,22 @@ int	tab_len(char **tab)
 	return (i);
 }
 
-void	print_error(char *str)
+int	find_max_tab(char **tab)
 {
-	size_t	i;
+	int	i;
+	int	j;
+	int	max;
 
 	i = 0;
-	write(2, "Error\n", 6);
-	while (str[i])
+	max = 0;
+	while (tab[i] != NULL)
 	{
-		write(2, &str[i], 1);
+		j = 0;
+		while (tab[i][j])
+			j++;
+		if (max < j)
+			max = j;
 		i++;
 	}
-	write(2, "\n", 1);
+	return (max);
 }

@@ -1,16 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/19 12:05:03 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 13:39:18 by hcissoko         ###   ########.fr       */
+/*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
+/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	only_valid_char(char **tab)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		j = 0;
+		while (tab[i][j])
+		{
+			if (!(tab[i][j] == '1' || tab[i][j] == '0' || tab[i][j] == 'N'
+					|| tab[i][j] == 'W' || tab[i][j] == 'S' || tab[i][j] == 'E'
+					|| tab[i][j] == ' '))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 char	**ft_grid_cpy(char **tab)
 {

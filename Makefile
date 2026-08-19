@@ -1,14 +1,21 @@
 NAME = cub3d
 
-SRCS =  main.c \
-		utils1.c \
-		utils2.c \
-		parsing1.c \
-		init1_data.c \
-		init2_data.c \
-		init3_data.c \
-		init1_game.c \
-		flood_fill.c \
+SRCS =  src/main.c \
+		src/player_movement.c \
+		src/input.c \
+		src/render_utils.c \
+		src/raycasting.c \
+		src/raycasting_draw.c \
+		src/init_game.c \
+		src/init_player.c \
+		src/init_player_dir.c \
+		src/parse_config.c \
+		src/parse_data.c \
+		src/parse_map.c \
+		src/map_validation.c \
+		src/utils.c \
+		src/errors.c \
+		src/free_utils.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c
 
@@ -31,7 +38,7 @@ all: $(NAME)
 $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 	$(CC) $(FLAGS) $(OBJS) $(MLX_LIB) -no-pie $(MLX_FLAGS) -o $(NAME) ${LIBFT_LIB}
 	@echo "✅ Build complete! Executable: $(NAME)"
-	@errors=$$(norminette | grep "Error:" | wc -l); \
+	@errors=$$(norminette src/ | grep "Error:" | wc -l); \
 	if [ "$$errors" -gt 0 ]; then \
 		echo "❌ $$errors norm error(s)"; \
 	fi
