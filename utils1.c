@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/23 23:09:10 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/18 16:19:18 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/19 13:09:59 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,6 @@ int	is_cub(char *str)
 		&& str[i - 3] == '.')
 		return (0);
 	return (1);
-}
-
-char	*ft_strdup(char *str)
-{
-	size_t	i;
-	char	*dup_str;
-
-	i = 0;
-	dup_str = malloc(sizeof(char) * (ft_strlen(str) + 1));
-	if (!dup_str)
-		return (NULL);
-	while (str[i])
-	{
-		dup_str[i] = str[i];
-		i++;
-	}
-	dup_str[i] = '\0';
-	return (dup_str);
 }
 
 int	tab_len(char **tab)

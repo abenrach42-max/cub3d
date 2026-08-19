@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init3_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/06 18:31:47 by enemxa            #+#    #+#             */
-/*   Updated: 2026/07/22 20:52:33 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/19 14:25:13 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,16 @@ int	fill_tab_data(t_data *data, int index_tab, int len_tab, int fd)
 	}
 	data->tab = malloc(sizeof(char *) * (len_tab + 1));
 	if (!data->tab)
-		return (close(fd), 1);
+		return (free(line), close(fd), 1);
 	i = 0;
 	while (line != NULL)
 	{
 		data->tab[i] = ft_strdup(line);
 		if (!data->tab[i])
 			return (free_tab(data->tab, i), close(fd), 1);
+		if (ft_strlen(data->tab[i]) > 0
+			&& data->tab[i][ft_strlen(data->tab[i]) - 1] == '\n')
+			data->tab[i][ft_strlen(data->tab[i]) - 1] = '\0';
 		free(line);
 		line = get_next_line(fd);
 		i++;

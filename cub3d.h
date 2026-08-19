@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/22 20:12:11 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/19 13:36:36 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define FRONT 1
 # define BEHIND -1
 # include "get_next_line/get_next_line.h"
+# include "libft.h"
 # include "minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
@@ -119,12 +120,12 @@ t_data			*init_data(char *av);
 size_t			len_path_dir(char *line);
 int				init_pos_tab_in_file(int fd);
 int				tab_in_data(t_data *data);
-char			*ft_strdup(char *str);
 int				tab_len(char **tab);
 void			free_tab(char **tab, int size);
 t_game			*init_game(t_data *data);
 int				find_max_tab(char **tab);
 void			free_all(t_data *data);
 void			print_error(char *str);
-
+char			**ft_grid_cpy(char **tab);
+int				flood_fill(char **grid, int row, int col);
 #endif

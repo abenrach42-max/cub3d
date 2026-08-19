@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init1_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/09 17:48:55 by abenrach          #+#    #+#             */
-/*   Updated: 2026/07/27 16:21:58 by houms            ###   ########.fr       */
+/*   Updated: 2026/08/19 13:42:05 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ int	loads_images(t_data *data, t_game *game)
 	return (0);
 }
 
-int	init_mlx_game(t_game *game, t_data *data)
+int	init_mlx_game(t_data *data)
 {
-	data->game = game;
-	game->mlx = mlx_init();
-	if (!game->mlx)
+	data->game->mlx = mlx_init();
+	if (!data->game->mlx)
 		return (print_error("Mlx init fail"), 1);
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
-	if (!game->win)
+	data->game->win = mlx_new_window(data->game->mlx, WIDTH, HEIGHT, "cub3d");
+	if (!data->game->win)
 		return (print_error("Window of Mlx init fail"), 1);
-	if (loads_images(data, game))
+	if (loads_images(data, data->game))
 		return (1);
-	game->img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
-	if (!game->img)
+	data->game->img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
+	if (!data->game->img)
 		return (print_error("Image init fail"), 1);
-	game->addr = mlx_get_data_addr(data->game->img, &data->game->bits_per_pixel,
+	data->game->addr = mlx_get_data_addr(data->game->img,
+			&data->game->bits_per_pixel,
 			&data->game->size_line, &data->game->endian);
-	if (!game->addr)
+	if (!data->game->addr)
 		return (print_error("Get addr fail"), 1);
 	return (0);
 }
@@ -160,18 +160,27 @@ t_game	*init_game(t_data *data)
 {
 	t_game		*game;
 	t_player	*player;
+	char		**grid_cpy;
 
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (print_error("Malloc game fail"), NULL);
-	init_game_var(game);
-	if (init_mlx_game(game, data))
-		return (NULL);
 	player = malloc(sizeof(t_player));
 	if (!player)
-		return (print_error("Malloc player init fail"), NULL);
+		return (print_error("Malloc player init failed"), NULL);
 	data->player = player;
 	if (init_player(data, player))
+		return (NULL);
+	grid_cpy = ft_grid_cpy(data->tab);
+	if (!grid_cpy)
+		return (print_error("Duplication of grid failed"), NULL);
+	if (flood_fill(grid_cpy, data->player->map_y, data->player->map_x))
+		return (print_error("Flood Fill cannot be completed"),
+			ft_strsfree(grid_cpy, ft_strs_size(grid_cpy)), NULL);
+	ft_strsfree(grid_cpy, ft_strs_size(grid_cpy));
+	game = malloc(sizeof(t_game));
+	if (!game)
+		return (print_error("Malloc game failed"), NULL);
+	data->game = game;
+	init_game_var(game);
+	if (init_mlx_game(data))
 		return (NULL);
 	return (game);
 }
