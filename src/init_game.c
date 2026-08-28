@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:48:55 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,30 @@
 
 int	loads_images(t_data *data, t_game *game)
 {
-	int	h;
-	int	w;
-
-	game->img_no = mlx_xpm_file_to_image(game->mlx, data->no_path, &w, &h);
+	game->img_no = mlx_xpm_file_to_image(game->mlx, data->no_path, &game->text_no_w, &game->text_no_h);
 	if (!game->img_no)
 		return (print_error("Image north init fail"), 1);
-	game->img_so = mlx_xpm_file_to_image(game->mlx, data->so_path, &w, &h);
+	game->addr_no = mlx_get_data_addr(game->img_no, &game->bpp_no, &game->size_line_no, &game->endian_no);
+	if (!game->addr_no)
+		return (print_error("Get addr north fail"), 1);
+	game->img_so = mlx_xpm_file_to_image(game->mlx, data->so_path, &game->text_so_w, &game->text_so_h);
 	if (!game->img_so)
 		return (print_error("Image south init fail"), 1);
-	game->img_ea = mlx_xpm_file_to_image(game->mlx, data->ea_path, &w, &h);
+	game->addr_so = mlx_get_data_addr(game->img_so, &game->bpp_so, &game->size_line_so, &game->endian_so);
+	if (!game->addr_so)
+		return (print_error("Get addr south fail"), 1);
+	game->img_ea = mlx_xpm_file_to_image(game->mlx, data->ea_path, &game->text_ea_w, &game->text_ea_h);
 	if (!game->img_ea)
 		return (print_error("Image east init fail"), 1);
-	game->img_we = mlx_xpm_file_to_image(game->mlx, data->we_path, &w, &h);
+	game->addr_ea = mlx_get_data_addr(game->img_ea, &game->bpp_ea, &game->size_line_ea, &game->endian_ea);
+	if (!game->addr_ea)
+		return (print_error("Get addr east fail"), 1);
+	game->img_we = mlx_xpm_file_to_image(game->mlx, data->we_path, &game->text_we_w, &game->text_we_h);
 	if (!game->img_we)
 		return (print_error("Image weast init fail"), 1);
+	game->addr_we = mlx_get_data_addr(game->img_we, &game->bpp_we, &game->size_line_we, &game->endian_we);
+	if (!game->addr_we)
+		return (print_error("Get addr weast fail"), 1);
 	return (0);
 }
 
@@ -45,10 +54,10 @@ int	init_mlx_game(t_data *data)
 	data->game->img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
 	if (!data->game->img)
 		return (print_error("Image init fail"), 1);
-	data->game->addr = mlx_get_data_addr(data->game->img,
-			&data->game->bits_per_pixel,
-			&data->game->size_line, &data->game->endian);
-	if (!data->game->addr)
+	data->game->addr_img = mlx_get_data_addr(data->game->img,
+			&data->game->bpp_img,
+			&data->game->size_line_img, &data->game->endian_img);
+	if (!data->game->addr_img)
 		return (print_error("Get addr fail"), 1);
 	return (0);
 }
@@ -62,7 +71,7 @@ void	init_game_var(t_game *game)
 	game->img_no = NULL;
 	game->img_ea = NULL;
 	game->img_we = NULL;
-	game->addr = NULL;
+	game->addr_img = NULL;
 }
 
 t_game	*init_game(t_data *data)

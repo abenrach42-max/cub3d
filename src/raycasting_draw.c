@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_draw.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/28 13:47:55 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	draw_wall(t_data *data, int x, t_player *player)
 	while (y < HEIGHT)
 	{
 		if (y < player->draw_start)
-			put_pixel(data->game, x, y, YELLOW);
+			put_pixel(data->game, x, y, data->int_ceiling);
 		else if (y >= player->draw_start && y <= player->draw_end)
 		{
 			if (player->side == 0)
@@ -29,7 +29,7 @@ void	draw_wall(t_data *data, int x, t_player *player)
 				put_pixel(data->game, x, y, 0x99331A);
 		}
 		else
-			put_pixel(data->game, x, y, GREEN);
+			put_pixel(data->game, x, y, data->int_floor);
 		y++;
 	}
 }

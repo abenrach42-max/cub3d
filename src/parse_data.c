@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/28 13:43:37 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,11 @@ t_data	*init_data(char *av)
 		return (free_all(data), NULL);
 	if (!only_valid_char(data->tab))
 		return (print_error("Invalid character in map"), free_all(data), NULL);
+	data->int_floor = create_rgb(data->floor_color);
+	if (data->int_floor == -1)
+		return (print_error("Invalid floor color"), free_all(data), NULL);
+	data->int_ceiling = create_rgb(data->ceiling_color);
+	if (data->int_ceiling == -1)
+		return (print_error("Invalid ceiling color"), free_all(data), NULL);
 	return (data);
 }

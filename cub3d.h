@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/19 13:36:36 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/08/28 14:30:38 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,34 @@ typedef struct s_game
 	void		*img_no;
 	void		*img_ea;
 	void		*img_we;
-	int			bits_per_pixel;
-	int			size_line;
-	int			endian;
-	char		*addr;
+	int			bpp_img;
+	int			bpp_no;
+	int			bpp_so;
+	int			bpp_ea;
+	int			bpp_we;
+	int			size_line_img;
+	int			size_line_no;
+	int			size_line_so;
+	int			size_line_we;
+	int			size_line_ea;
+	int			endian_img;
+	int			endian_no;
+	int			endian_so;
+	int			endian_ea;
+	int			endian_we;
+	char		*addr_img;
+	char		*addr_no;
+	char		*addr_so;
+	char		*addr_ea;
+	char		*addr_we;
+	int			text_no_w;
+	int			text_so_w;
+	int			text_ea_w;
+	int			text_we_w;
+	int			text_no_h;
+	int			text_so_h;
+	int			text_ea_h;
+	int			text_we_h;
 }				t_game;
 
 typedef struct s_keys
@@ -107,10 +131,19 @@ typedef struct s_data
 	char		*ea_path;
 	char		*floor_color;
 	char		*ceiling_color;
+	int			int_floor;
+	int			int_ceiling;
 	t_game		*game;
 	t_player	*player;
 	t_keys		keys;
 }				t_data;
+
+typedef	struct	s_clr
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}				t_clr;
 
 t_data			*init_data(char *av);
 int				path_in_data(t_data *data, int fd);
@@ -120,6 +153,7 @@ int				tab_in_data(t_data *data);
 int				only_valid_char(char **tab);
 char			**ft_grid_cpy(char **tab);
 int				flood_fill(char **grid, int row, int col);
+int				create_rgb(char *str);
 
 t_game			*init_game(t_data *data);
 int				init_player(t_data *data, t_player *player);
