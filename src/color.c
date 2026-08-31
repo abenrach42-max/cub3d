@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 10:57:12 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/31 11:39:20 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/31 15:42:39 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	create_rgb(char *str)
 	i = 0;
 	if (parse_color_component(str, &i, &clr.r) == -1)
 		return (-1);
-	if (str[i] != '.')
+	if (str[i] != ',')
 		return (-1);
 	i++;
 	if (parse_color_component(str, &i, &clr.g) == -1)
 		return (-1);
-	if (str[i] != '.')
+	if (str[i] != ',')
 		return (-1);
 	i++;
 	if (parse_color_component(str, &i, &clr.b) == -1)
