@@ -18,7 +18,10 @@ SRCS =  src/main.c \
 		src/free_utils.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
-		src/color.c
+		src/color.c \
+		src/wall_draw.c \
+		src/textures_init.c \
+		src/init_image.c
 
 OBJS = $(SRCS:.c=.o)
 

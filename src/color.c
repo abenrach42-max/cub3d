@@ -6,12 +6,11 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 10:57:12 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/28 13:46:55 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/31 11:39:20 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 static int	get_num_len(char *str, int i)
 {
@@ -23,7 +22,8 @@ static int	get_num_len(char *str, int i)
 	return (len);
 }
 
-static int	parse_color_component(char *str, int *i, unsigned char *color_channel)
+static int	parse_color_component(char *str, int *i,
+		unsigned char *color_channel)
 {
 	int		len;
 	char	*tmp;

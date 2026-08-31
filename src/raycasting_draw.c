@@ -6,32 +6,33 @@
 /*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/28 13:47:55 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/08/31 11:35:51 by abenrach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall(t_data *data, int x, t_player *player)
+void	calculate_wall_dir_and_x(t_player *player)
 {
-	int	y;
-
-	y = 0;
-	while (y < HEIGHT)
+	if (player->side == 0)
 	{
-		if (y < player->draw_start)
-			put_pixel(data->game, x, y, data->int_ceiling);
-		else if (y >= player->draw_start && y <= player->draw_end)
-		{
-			if (player->side == 0)
-				put_pixel(data->game, x, y, 0xFF5733);
-			else
-				put_pixel(data->game, x, y, 0x99331A);
-		}
+		player->wall_x = player->pos_y + player->perp_wall_dist
+			* player->ray_dir_y;
+		if (player->step_x > 0)
+			player->wall_dir = 3;
 		else
-			put_pixel(data->game, x, y, data->int_floor);
-		y++;
+			player->wall_dir = 2;
 	}
+	else
+	{
+		player->wall_x = player->pos_x + player->perp_wall_dist
+			* player->ray_dir_x;
+		if (player->step_y > 0)
+			player->wall_dir = 0;
+		else
+			player->wall_dir = 1;
+	}
+	player->wall_x -= floor(player->wall_x);
 }
 
 void	raycasting_per_column(t_data *data, int x)
@@ -49,6 +50,7 @@ void	raycasting_per_column(t_data *data, int x)
 	calculate_step(data->player);
 	perform_dda(data, data->player);
 	calculate_wall_height(data->player);
+	calculate_wall_dir_and_x(data->player);
 	draw_wall(data, x, data->player);
 }
 
