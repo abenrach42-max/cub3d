@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 16:51:07 by abenrach          #+#    #+#             */
-/*   Updated: 2025/11/26 15:10:52 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:04:30 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,22 +129,3 @@ char	*get_next_line(int fd)
 	stash = update_tab(stash);
 	return (line);
 }
-/*
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-
-int	main(void)
-{
-	int fd = open("texte.txt", O_RDONLY);
-	char *line;
-
-	if (fd < 0)
-		return (1);
-	line = get_next_line(0);
-	printf("%s", line);
-	free(line);
-	close(fd);
-	return (0);
-}*/
