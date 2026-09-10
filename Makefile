@@ -62,6 +62,7 @@ clean:
 	${MAKE} -C ${LIBFT_DIR} clean
 
 fclean: clean
+	${MAKE} -C ${LIBFT_DIR} fclean
 	rm -f $(NAME)
 
 re: fclean all

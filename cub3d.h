@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/08/31 11:47:03 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/09/10 13:20:38 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ int					init_img_we(t_data *data, t_game *game);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					is_cub(char *str);
 int					tab_len(char **tab);
-int					find_max_tab(char **tab);
 void				print_error(char *str);
 void				free_tab(char **tab, int size);
 void				free_all(t_data *data);
