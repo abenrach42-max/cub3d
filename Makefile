@@ -1,4 +1,4 @@
-NAME = cub3d
+NAME = cub3D
 
 SRCS =  src/main.c \
 		src/player_movement.c \
@@ -58,6 +58,8 @@ $(MLX_LIB):
 
 clean:
 	rm -f $(OBJS)
+	${MAKE} -C ${MLX_DIR} clean
+	${MAKE} -C ${LIBFT_DIR} clean
 
 fclean: clean
 	rm -f $(NAME)

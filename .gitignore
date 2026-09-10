@@ -1,4 +1,7 @@
+# Binaire du projet
+cub3D
 cub3d
+
 # Prerequisites
 *.d
 
@@ -57,4 +60,3 @@ dkms.conf
 
 
 *.supp
-minishell
