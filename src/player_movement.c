@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/09/22 15:31:01 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	handle_movement(t_data *data)
 		move_player(data, -data->player->dir_y, data->player->dir_x);
 	if (data->keys.a)
 		move_player(data, data->player->dir_y, -data->player->dir_x);
-	if (data->keys.left)
-		rotate_player(data, ANGLE_SPEED);
 	if (data->keys.right)
+		rotate_player(data, ANGLE_SPEED);
+	if (data->keys.left)
 		rotate_player(data, -ANGLE_SPEED);
 }

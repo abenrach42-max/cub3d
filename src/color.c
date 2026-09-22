@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/28 10:57:12 by abenrach          #+#    #+#             */
-/*   Updated: 2026/09/22 15:32:39 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:20:22 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	parse_color_component(char *str, int *i,
 	int		nb;
 
 	len = get_num_len(str, *i);
-	if (len == 0)
+	if (len == 0 || len > 3)
 		return (-1);
 	tmp = malloc(sizeof(char) * (len + 1));
 	if (!tmp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 19:27:47 by abenrach          #+#    #+#             */
-/*   Updated: 2026/09/10 13:20:38 by houms            ###   ########.fr       */
+/*   Updated: 2026/09/22 16:35:38 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define YELLOW 0x00FFFF00
 # define FRONT 1
 # define BEHIND -1
+# define EXTENSION ".cub"
 # include "get_next_line/get_next_line.h"
 # include "libft.h"
 # include "minilibx-linux/mlx.h"
@@ -162,6 +163,7 @@ int					init_pos_tab_in_file(int fd);
 int					tab_in_data(t_data *data);
 int					only_valid_char(char **tab);
 char				**ft_grid_cpy(char **tab);
+int					has_empty_line(char **tab);
 int					flood_fill(char **grid, int row, int col);
 int					create_rgb(char *str);
 
@@ -189,6 +191,7 @@ int					init_img_we(t_data *data, t_game *game);
 
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					is_cub(char *str);
+void				drain_gnl(int fd);
 int					tab_len(char **tab);
 void				print_error(char *str);
 void				free_tab(char **tab, int size);

@@ -6,7 +6,7 @@
 /*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:39:49 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ char	*fill_line_path(t_data *data, char *line)
 	return (new_path);
 }
 
+static void	set_path(t_data *data, char **dst, char *line)
+{
+	free(*dst);
+	*dst = fill_line_path(data, line);
+}
+
 void	add_nb_dir(t_data *data, char *line)
 {
 	size_t	i;
@@ -46,26 +52,14 @@ void	add_nb_dir(t_data *data, char *line)
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	if (!ft_strncmp(line + i, "NO", 2))
-	{
-		data->nb_no++;
-		data->no_path = fill_line_path(data, line);
-	}
-	else if (!ft_strncmp(line + i, "SO", 2))
-	{
-		data->nb_so++;
-		data->so_path = fill_line_path(data, line);
-	}
-	else if (!ft_strncmp(line + i, "EA", 2))
-	{
-		data->nb_ea++;
-		data->ea_path = fill_line_path(data, line);
-	}
-	else if (!ft_strncmp(line + i, "WE", 2))
-	{
-		data->nb_we++;
-		data->we_path = fill_line_path(data, line);
-	}
+	if (!ft_strncmp(line + i, "NO", 2) && ++data->nb_no)
+		set_path(data, &data->no_path, line);
+	else if (!ft_strncmp(line + i, "SO", 2) && ++data->nb_so)
+		set_path(data, &data->so_path, line);
+	else if (!ft_strncmp(line + i, "EA", 2) && ++data->nb_ea)
+		set_path(data, &data->ea_path, line);
+	else if (!ft_strncmp(line + i, "WE", 2) && ++data->nb_we)
+		set_path(data, &data->we_path, line);
 }
 
 void	add_nb_floor_or_color(t_data *data, char *line)
@@ -75,25 +69,10 @@ void	add_nb_floor_or_color(t_data *data, char *line)
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	if (line[i] == 'F')
-	{
-		data->nb_floor++;
-		data->floor_color = fill_line_path(data, line);
-	}
-	else if (line[i] == 'C')
-	{
-		data->nb_color++;
-		data->ceiling_color = fill_line_path(data, line);
-	}
-	return ;
-}
-
-void	malloc_path_dir(t_data *data, char *line, int dir)
-{
-	if (dir == 1)
-		add_nb_dir(data, line);
-	else if (dir == 2)
-		add_nb_floor_or_color(data, line);
+	if (line[i] == 'F' && ++data->nb_floor)
+		set_path(data, &data->floor_color, line);
+	else if (line[i] == 'C' && ++data->nb_color)
+		set_path(data, &data->ceiling_color, line);
 }
 
 int	path_in_data(t_data *data, int fd)
@@ -108,14 +87,14 @@ int	path_in_data(t_data *data, int fd)
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
 		if (!ft_strncmp(line + i, "F", 1) || !ft_strncmp(line + i, "C", 1))
-			malloc_path_dir(data, line, 2);
+			add_nb_floor_or_color(data, line);
 		else if (!ft_strncmp(line + i, "NO", 2) || !ft_strncmp(line + i, "WE",
 				2) || !ft_strncmp(line + i, "EA", 2) || !ft_strncmp(line + i,
 				"SO", 2))
-			malloc_path_dir(data, line, 1);
-		else if (line[i] != '\0' && line[i] != '\n' && line[i] != '1'
-			&& line[i] != '_')
-			return (print_error("Strings in file"), free(line), close(fd), 1);
+			add_nb_dir(data, line);
+		else if (line[i] != '\0' && line[i] != '\n' && line[i] != '1')
+			return (print_error("Strings in file"), free(line), drain_gnl(fd)
+				, 1);
 		free(line);
 		line = get_next_line(fd);
 	}

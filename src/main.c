@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/09/22 15:24:22 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	t_data	*data;
 	t_game	*game;
 
-	if (ac != 2 || is_cub(av[1]))
+	if (ac != 2 || !is_cub(av[1]))
 		return (print_error("Wrong argument"), 1);
 	data = init_data(av[1]);
 	if (!data)

@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 18:56:56 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/09/22 15:24:55 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	has_empty_line(char **tab)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab[i])
+	{
+		j = 0;
+		while (tab[i][j] == ' ')
+			j++;
+		if (tab[i][j] == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	only_valid_char(char **tab)
 {
@@ -62,22 +80,12 @@ char	**ft_grid_cpy(char **tab)
 
 int	flood_fill(char **grid, int row, int col)
 {
-	if (row >= 0 && col >= 0 && grid[row] && grid[row][col])
-	{
-		if (grid[row][col] != '1' && grid[row][col] != 'X'
-			&& col <= (int)ft_strlen(grid[row]) && grid[row][col] != ' ')
-		{
-			grid[row][col] = 'X';
-			if (flood_fill(grid, row - 1, col)
-				|| flood_fill(grid, row + 1, col)
-				|| flood_fill(grid, row, col + 1)
-				|| flood_fill(grid, row, col - 1))
-				return (1);
-		}
-		if (grid[row][col] == ' ')
-			return (1);
-	}
-	else
+	if (row < 0 || col < 0 || !grid[row]
+		|| col >= (int)ft_strlen(grid[row]) || grid[row][col] == ' ')
 		return (1);
-	return (0);
+	if (grid[row][col] == '1' || grid[row][col] == 'X')
+		return (0);
+	grid[row][col] = 'X';
+	return (flood_fill(grid, row - 1, col) || flood_fill(grid, row + 1, col)
+		|| flood_fill(grid, row, col + 1) || flood_fill(grid, row, col - 1));
 }

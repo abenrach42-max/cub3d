@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
+/*   By: houms <houms@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/19 15:09:09 by hcissoko         ###   ########.fr       */
+/*   Updated: 2026/09/22 15:02:43 by houms            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	key_press(int keycode, t_data *data)
 	if (keycode == 97)
 		data->keys.a = 1;
 	if (keycode == 65361)
-		data->keys.right = 1;
-	if (keycode == 65363)
 		data->keys.left = 1;
+	if (keycode == 65363)
+		data->keys.right = 1;
 	return (0);
 }
 
@@ -42,8 +42,8 @@ int	key_release(int keycode, t_data *data)
 	if (keycode == 97)
 		data->keys.a = 0;
 	if (keycode == 65361)
-		data->keys.right = 0;
-	if (keycode == 65363)
 		data->keys.left = 0;
+	if (keycode == 65363)
+		data->keys.right = 0;
 	return (0);
 }

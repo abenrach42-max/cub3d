@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abenrach <abenrach@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcissoko <hcissoko@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/19 15:09:09 by hcissoko          #+#    #+#             */
-/*   Updated: 2026/08/28 13:43:37 by abenrach         ###   ########.fr       */
+/*   Updated: 2026/09/22 16:37:53 by hcissoko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	is_valid_identifier(char *str)
 	if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
 		|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
 	{
-		if (str[2] == ' ' || str[2] == '\t' || str[2] == '_')
+		if (str[2] == ' ' || str[2] == '\t')
 			return (1);
 	}
 	if (!ft_strncmp(str, "F", 1) || !ft_strncmp(str, "C", 1))
 	{
-		if (str[1] == ' ' || str[1] == '\t' || str[1] == '_')
+		if (str[1] == ' ' || str[1] == '\t')
 			return (1);
 	}
 	return (0);
@@ -86,9 +86,9 @@ int	init_pos_tab_in_file(int fd)
 		if (is_valid_identifier(line + i))
 			count++;
 		else if (line[i] != '\0' && line[i] != '\n' && line[i] != '1')
-			return (free(line), close(fd), 1);
+			return (free(line), drain_gnl(fd), -1);
 		if (count == 6 && line[i] == '1')
-			return (free(line), close(fd), j);
+			return (free(line), drain_gnl(fd), j);
 		j++;
 		free(line);
 		line = get_next_line(fd);
@@ -113,8 +113,9 @@ t_data	*init_data(char *av)
 		return (free_all(data), NULL);
 	if (tab_in_data(data))
 		return (free_all(data), NULL);
-	if (!only_valid_char(data->tab))
-		return (print_error("Invalid character in map"), free_all(data), NULL);
+	if (!only_valid_char(data->tab) || has_empty_line(data->tab))
+		return (print_error("Invalid character or empty line in map"),
+			free_all(data), NULL);
 	data->int_floor = create_rgb(data->floor_color);
 	if (data->int_floor == -1)
 		return (print_error("Invalid floor color"), free_all(data), NULL);
