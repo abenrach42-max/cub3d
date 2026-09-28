@@ -30,6 +30,7 @@ FLAGS = -Wall -Werror -Wextra
 
 MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_URL = https://github.com/42paris/minilibx-linux.git
 MLX_FLAGS = -lXext -lX11 -lm
 
 LIBFT_DIR = ./libft
@@ -47,22 +48,26 @@ $(NAME): $(OBJS) $(MLX_LIB) $(LIBFT_LIB)
 		echo "❌ $$errors norm error(s)"; \
 	fi
 
-%.o: %.c
+%.o: %.c | $(MLX_DIR)
 	$(CC) $(FLAGS) $(INCS) -c $< -o $@
 
 $(LIBFT_LIB):
 	make -C $(LIBFT_DIR)
 
-$(MLX_LIB):
+$(MLX_DIR):
+	git clone $(MLX_URL) $(MLX_DIR)
+
+$(MLX_LIB): | $(MLX_DIR)
 	make -C $(MLX_DIR)
 
 clean:
 	rm -f $(OBJS)
-	${MAKE} -C ${MLX_DIR} clean
+	@if [ -d $(MLX_DIR) ]; then $(MAKE) -C $(MLX_DIR) clean; fi
 	${MAKE} -C ${LIBFT_DIR} clean
 
 fclean: clean
 	${MAKE} -C ${LIBFT_DIR} fclean
+	rm -rf ${MLX_DIR}
 	rm -f $(NAME)
 
 re: fclean all
