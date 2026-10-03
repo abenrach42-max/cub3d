@@ -113,8 +113,6 @@ All heap memory is freed on every exit path, including the ones triggered by `ES
 - [Lode Vandevenne's ray-casting tutorial](https://lodev.org/cgtutor/raycasting.html) — the reference for the DDA algorithm, the camera plane and textured walls
 - [MiniLibX documentation (42 Docs)](https://harm-smits.github.io/42docs/libs/minilibx) — images, hooks and event handling
 - [MiniLibX repository](https://github.com/42paris/minilibx-linux)
-- [Wolfenstein 3D in the browser](http://users.atw.hu/wolf3d/) — the original game
-- `man 3 math`, `man 2 open`, `man 2 read`
 
 ### Use of AI
 
